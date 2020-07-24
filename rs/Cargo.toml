@@ -4,9 +4,4 @@ version = "0.1.0"
 authors = ["Ömer Sinan Ağacan <omeragacan@gmail.com>"]
 edition = "2018"
 
-[lib]
-path = "lib/lib.rs"
-
 [dependencies]
-wasi = "0.10.0+wasi-snapshot-preview1"
-wee_alloc = "0.4.5"

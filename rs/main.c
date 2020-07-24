@@ -1,6 +1,7 @@
 void rust_main(void);
 
-void _start()
+int main(int argc, char **argv)
 {
     rust_main();
+    return 0;
 }
