@@ -9,3 +9,10 @@ Relevant links:
 
 - Wasm static linking:
   https://github.com/WebAssembly/tool-conventions/blob/master/Linking.md
+
+- Wasmtime WASI tutorial:
+  https://github.com/bytecodealliance/wasmtime/blob/main/docs/WASI-tutorial.md
+
+- wasi-sdk provides WASI implementation of libc and wrappers to make it easy to
+  WASI apps:
+  https://github.com/WebAssembly/wasi-sdk
