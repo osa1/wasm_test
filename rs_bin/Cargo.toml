@@ -1,0 +1,8 @@
+[package]
+name = "rs_bin"
+version = "0.1.0"
+authors = ["Ömer Sinan Ağacan <omeragacan@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+wasi = "0.10.0"

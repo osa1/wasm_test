@@ -24,7 +24,7 @@ clang-10: error: linker command failed with exit code 1 (use -v to see invocatio
 
 If I rename it
 
-```
+```rust
 #[link(wasm_import_module = "wasi_snapshot_preview1")]
 extern "C" {
     #[no_mangle]
@@ -53,14 +53,14 @@ above, and then patch the final Wasm to convert this
 
 to
 
-```
+```wat
 (import "wasi_snapshot_preview1" "fd_write" (func $__wasi_fd_write (type 1)))
 ```
 
 The part that we cannot express in Rust source current is that the import name
 and Rust function name are different. Tried adding `wasm_import_name`:
 
-```
+```rust
 #[link(wasm_import_module = "wasi_snapshot_preview1")]
 extern "C" {
     #[link(wasm_import_name = "fd_write")]
@@ -71,3 +71,7 @@ extern "C" {
 
 but this didn't make any difference. It seems like the attribute is not working,
 not sure if this is a rustc bug or not.
+
+Interestingly, I can use WASI API using the `wasi` library. I checked the source
+code to see if there are any tricks used in that library, but the function
+`fd_write` is declared the same way. No idea why it's working there.
