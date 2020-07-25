@@ -6,7 +6,7 @@ use core::mem::MaybeUninit;
 type Size = usize;
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone)]
 struct Ciovec {
     /// The address of the buffer to be written.
     buf: *const u8,
@@ -20,14 +20,15 @@ type Fd = u32;
 
 #[link(wasm_import_module = "wasi_snapshot_preview1")]
 extern "C" {
-    fn fd_write(fd: Fd, iovs_ptr: *const Ciovec, iovs_len: usize, nwritten: *mut Size) -> Errno;
+    #[no_mangle]
+    fn __wasi_fd_write(fd: Fd, iovs_ptr: *const Ciovec, iovs_len: usize, nwritten: *mut Size) -> Errno;
 }
 
 type CiovecArray<'a> = &'a [Ciovec];
 
 unsafe fn fd_write_(fd: Fd, iovs: CiovecArray) -> Result<Size, Errno> {
     let mut nwritten = MaybeUninit::uninit();
-    let rc = fd_write(fd, iovs.as_ptr(), iovs.len(), nwritten.as_mut_ptr());
+    let rc = __wasi_fd_write(fd, iovs.as_ptr(), iovs.len(), nwritten.as_mut_ptr());
     if rc != 0 {
         Err(rc)
     } else {
