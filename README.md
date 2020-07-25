@@ -16,3 +16,13 @@ Relevant links:
 - wasi-sdk provides WASI implementation of libc and wrappers to make it easy to
   WASI apps:
   https://github.com/WebAssembly/wasi-sdk
+
+Notes:
+
+- This error message:
+
+  ```
+  wasm-ld: error: entry symbol not defined (pass --no-entry to supress): _start
+  ```
+
+  usually means we failed to link libc, as libc defines `_start`.
