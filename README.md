@@ -25,4 +25,5 @@ Notes:
   wasm-ld: error: entry symbol not defined (pass --no-entry to supress): _start
   ```
 
-  usually means we failed to link libc, as libc defines `_start`.
+  usually means we failed to link libc, as libc (I think crt1.o is part of
+  libc?) defines `_start`.
