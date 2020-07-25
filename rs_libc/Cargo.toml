@@ -1,5 +1,5 @@
 [package]
-name = "rs_static_lib_libc"
+name = "rs_libc"
 version = "0.1.0"
 authors = ["Ömer Sinan Ağacan <omeragacan@gmail.com>"]
 edition = "2018"
