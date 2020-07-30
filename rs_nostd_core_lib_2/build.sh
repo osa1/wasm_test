@@ -22,15 +22,11 @@ echo '##### Building wasm32-unknown-emscripten'
 rm -rf target *.o *.wasm *.wat *.so main
 clang-10 --target=wasm32-unknown-emscripten lib.c -c -o lib.o
 wasm2wat --enable-all lib.o > lib.wat
-# Doesn't work: recompile with -fPIC
-# cargo build --target=wasm32-unknown-emscripten
+xargo build --target=wasm32-unknown-emscripten -v --release
 
-# Adding -Crelocation-model doesn't make any difference. Maybe because the
-# problem is the core library?
-xargo rustc --target=wasm32-unknown-emscripten -v -- -Crelocation-model=pic
-
-wasm-ld --shared \
+wasm-ld --shared --export rust_fn --export c_fn --gc-sections \
     lib.o \
-    --whole-archive target/wasm32-unknown-emscripten/debug/librs_nostd_core_lib_1.a \
+    target/wasm32-unknown-emscripten/release/librs_nostd_core_lib_1.a \
     -o libfinal.wasm
+
 wasm2wat --enable-all libfinal.wasm > libfinal.wat
