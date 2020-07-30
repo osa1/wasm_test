@@ -27,7 +27,7 @@ wasm2wat --enable-all lib.o > lib.wat
 
 # Adding -Crelocation-model doesn't make any difference. Maybe because the
 # problem is the core library?
-cargo rustc --target=wasm32-unknown-emscripten -v -- -Crelocation-model=pic
+xargo rustc --target=wasm32-unknown-emscripten -v -- -Crelocation-model=pic
 
 wasm-ld --shared \
     lib.o \

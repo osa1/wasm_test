@@ -1,3 +1,9 @@
+Problem solved, see `.cargo/config` and the `xargo` command in `build.sh`.
+
+Old problem description below:
+
+---
+
 The idea is to build a Wasm shared library from C and Rust parts. Currently
 fails with:
 
