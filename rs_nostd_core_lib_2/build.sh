@@ -22,6 +22,11 @@ echo '##### Building wasm32-unknown-emscripten'
 rm -rf target *.o *.wasm *.wat *.so main
 clang-10 --target=wasm32-unknown-emscripten lib.c -c -o lib.o
 wasm2wat --enable-all lib.o > lib.wat
+
+# We don't need -Crelocation-model=pic here, probably because it's passed by
+# xargo? (see .cargo/config)
+#
+# xargo needed as 'core' for wasm32 is not built with PIC relocation model.
 xargo build --target=wasm32-unknown-emscripten -v --release
 
 wasm-ld --shared --export rust_fn --export c_fn --gc-sections \
