@@ -27,7 +27,11 @@ wasm2wat --enable-all lib.o > lib.wat
 # xargo? (see .cargo/config)
 #
 # xargo needed as 'core' for wasm32 is not built with PIC relocation model.
-xargo build --target=wasm32-unknown-emscripten -v --release
+#
+# codegen-units=1 is not necessary but it makes it generates less .o files in
+# the final archive and makes it easier to find symbols.
+xargo rustc --target=wasm32-unknown-emscripten -v --release -- \
+    -Crelocation-model=pic -Ccodegen-units=1
 
 wasm-ld --shared --export rust_fn --export c_fn --gc-sections \
     lib.o \
