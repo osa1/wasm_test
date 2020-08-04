@@ -47,9 +47,13 @@ impl<'a> fmt::Write for Wrapper<'a> {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn rust_fn(x: i32, y: i32) -> i32 {
+extern "C" fn rust_fn_2(x: i32, y: i32) -> i32 {
     let mut buf = [0u8; 100];
     write!(Wrapper::new(&mut buf), "{} + {} = {}", x, y, x + y).unwrap();
-    0
+    x + y
+}
+
+#[no_mangle]
+pub extern "C" fn rust_fn() -> extern "C" fn(x: i32, y: i32) -> i32 {
+    rust_fn_2
 }

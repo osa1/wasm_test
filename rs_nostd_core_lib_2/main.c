@@ -1,9 +1,9 @@
-int (*c_fn_2(void))(int x, int y);
-int rust_fn(int x, int y);
+int (*c_fn(void))(int x, int y);
+int (*rust_fn(void))(int x, int y);
 
 int main()
 {
-    rust_fn(5, 10);
-    c_fn_2()(10, 15);
+    rust_fn()(5, 10);
+    c_fn()(10, 15);
     return 0;
 }
