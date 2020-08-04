@@ -27,7 +27,7 @@ wasm2wat --enable-all lib.o > lib.wat
 #
 # codegen-units=1 is not necessary but it makes it generates less .o files in
 # the final archive and makes it easier to find symbols.
-cargo +stage1 rustc --target=wasm32-unknown-emscripten -v --release -- \
+xargo rustc --target=wasm32-unknown-emscripten -v --release -- \
     -Crelocation-model=pic -Ccodegen-units=1 --emit=llvm-ir --emit=mir
 
 wasm-ld --shared --export rust_fn --export c_fn --export c_fn_2 --gc-sections \
