@@ -50,6 +50,17 @@ impl<'a> fmt::Write for Wrapper<'a> {
 extern "C" fn rust_fn_2(x: i32, y: i32) -> i32 {
     let mut buf = [0u8; 100];
     write!(Wrapper::new(&mut buf), "{} + {} = {}", x, y, x + y).unwrap();
+
+    let mut buf = [0u8; 100];
+    unsafe {
+        libc::snprintf(
+            buf.as_mut_ptr() as *mut _,
+            100,
+            "%d".as_ptr() as *const _,
+            x + y,
+        )
+    };
+
     x + y
 }
 
